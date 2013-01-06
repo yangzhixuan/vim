@@ -1,0 +1,143 @@
+" vim: foldmethod=indent
+"general settings begin
+    set number
+
+    set expandtab
+    set shiftwidth=4
+    set tabstop=4
+
+    set autoread
+    set autoindent
+    syntax on
+
+    set mouse=a
+    set whichwrap=h,l,[,]
+
+    "colorscheme torte
+    set cursorline
+    set hlsearch
+    set foldmethod=syntax
+    set foldlevelstart=99
+    filetype indent on
+
+    "speed up external commands
+    set shell=/bin/zsh\ -f
+"end
+
+"dictionary completion <C-X><C-K> begin
+    set dictionary+=/usr/share/dict/cracklib-small
+    set isk+=-
+"end
+
+"forget-those begin
+    inoremap <ESC> <NOP>
+"end
+
+"shortcuts begin
+    let mapleader = ","
+    let localleader = "\\"
+    noremap <F5> :make %< <CR>
+    inoremap <F5> <ESC>:make %< <CR>
+
+    "use <space> to open or close folds
+    "nnoremap <SPACE> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
+    nnoremap <SPACE> za
+    noremap q :NERDTreeToggle<CR>
+    nnoremap <C-b>n  :bnext<CR>
+    nnoremap <C-b>p  :bprev<CR>
+    noremap \ gt
+    noremap <tab> gT
+    inoremap <C-Z> <ESC>zza
+    nnoremap _ ddkP
+    nnoremap - ddp
+    inoremap <C-u> <ESC>viwUei
+    nnoremap <leader>rc :vsp $MYVIMRC<CR>
+    nnoremap <leader>src :source $MYVIMRC<CR>
+
+    "surround the word
+    nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
+    nnoremap <leader>( viw<esc>a)<esc>hbi(<esc>lel
+    vnoremap <leader>" <esc>`>a"<esc>`<i"<esc>
+    vnoremap <leader>( <esc>`>a)<esc>`<i(<esc>
+
+    nnoremap H ^
+    nnoremap L $
+    inoremap jk <esc>
+    nnoremap <leader>o o<esc>k
+
+    "operator-pending mappings
+    onoremap in( :<C-u>normal! f(vi(<CR>
+    onoremap il( :<C-u>normal! F)vi(<CR>
+    onoremap in" :<C-u>normal! f"vi"<CR>
+    onoremap il" :<C-u>normal! F"vi"<CR>
+"end
+
+"smooth scroll begin
+	nnoremap <C-U> <C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y>
+	nnoremap <C-D> <C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E>
+"end
+
+"pathogen begin
+   call pathogen#infect() 
+"end
+
+"snipMate bein
+    filetype plugin on
+"end
+"powerline begin
+    set nocompatible
+    set t_Co=256
+    let g:Powerline_symbols = 'fancy'
+    set guifont=Monaco\ for\ Powerline
+    set laststatus=2
+"end
+
+
+"ctrlp begin
+    set runtimepath^=~/.vim/bundle/ctrlp.vim
+"end
+
+"ruby begin
+    let g:rsenseHome = "/home/jason/rsense-0.3/"
+
+    augroup rsense
+        autocmd!
+        autocmd BufNewFile,BufRead *.rb set softtabstop=2 | set shiftwidth=2  
+        autocmd FileType ruby set softtabstop=2 | set shiftwidth=2  
+    augroup END
+"end
+
+
+"fcitx begin"
+    let g:prev_status = 0
+    function! Fcitx2en()
+       let g:prev_status = system("fcitx-remote") 
+       if g:prev_status != 1
+          let l:a = system("fcitx-remote -c")
+       endif
+    endfunction
+
+    function! Fcitx2zh()
+       if g:prev_status == 2
+          let l:a = system("fcitx-remote -o")
+       endif
+    endfunction
+
+    augroup fcitx_aucmd
+        autocmd!
+        autocmd InsertLeave * call Fcitx2en()
+        autocmd InsertEnter * call Fcitx2zh()
+    augroup END
+"end
+
+"html_preview begin
+    augroup html_aucmd
+        autocmd!
+        autocmd FileType html nnoremap <leader>p :!firefox % <CR><CR>
+    augroup END
+"end
+
+"show space as dot
+    set listchars=tab:▸\ ,trail:·
+    set list
+"end
