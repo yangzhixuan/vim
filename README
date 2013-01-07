@@ -40,8 +40,8 @@
     inoremap <F5> <ESC>:make %< <CR>
 
     "use <space> to open or close folds
-    "nnoremap <SPACE> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
     nnoremap <SPACE> za
+
     noremap q :NERDTreeToggle<CR>
     nnoremap <C-b>n  :bnext<CR>
     nnoremap <C-b>p  :bprev<CR>
@@ -62,6 +62,9 @@
 
     nnoremap H ^
     nnoremap L $
+    vnoremap H ^
+    vnoremap L $
+
     inoremap jk <esc>
     nnoremap <leader>o o<esc>k
 
@@ -78,12 +81,14 @@
 "end
 
 "pathogen begin
-   call pathogen#infect() 
+    runtime bundle/vim-pathogen/autoload/pathogen.vim
+    call pathogen#infect()
 "end
 
 "snipMate bein
     filetype plugin on
 "end
+"
 "powerline begin
     set nocompatible
     set t_Co=256
@@ -98,9 +103,7 @@
 "end
 
 "ruby begin
-    let g:rsenseHome = "/home/jason/rsense-0.3/"
-
-    augroup rsense
+    augroup rubyindent
         autocmd!
         autocmd BufNewFile,BufRead *.rb set softtabstop=2 | set shiftwidth=2  
         autocmd FileType ruby set softtabstop=2 | set shiftwidth=2  
