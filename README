@@ -1,11 +1,14 @@
-" Yang Zhixuan's .vimrc file
 " vim: foldmethod=indent
 "general settings begin
     set number
+    set scrolloff=1
 
-    set expandtab
+    "enhanced completion in cmd line
+    set wildmenu
+
     set shiftwidth=4
     set tabstop=4
+    set expandtab
 
     set autoread
     set autoindent
@@ -17,9 +20,11 @@
     "colorscheme torte
     set cursorline
     set hlsearch
+    set display+=lastline
+
     set foldmethod=syntax
     set foldlevelstart=99
-    filetype indent on
+    filetype indent plugin on
 
     "speed up external commands
     set shell=/bin/zsh\ -f
@@ -37,43 +42,55 @@
 "shortcuts begin
     let mapleader = ","
     let localleader = "\\"
+
     noremap <F5> :make %< <CR>
     inoremap <F5> <ESC>:make %< <CR>
+    noremap q :NERDTreeToggle<CR>
 
     "use <space> to open or close folds
     nnoremap <SPACE> za
 
-    noremap q :NERDTreeToggle<CR>
-    nnoremap <C-b>n  :bnext<CR>
-    nnoremap <C-b>p  :bprev<CR>
-    noremap \ gt
-    noremap <tab> gT
-    inoremap <C-Z> <ESC>zza
-    nnoremap _ ddkP
-    nnoremap - ddp
-    inoremap <C-u> <ESC>viwUei
-    nnoremap <leader>rc :vsp $MYVIMRC<CR>
-    nnoremap <leader>src :source $MYVIMRC<CR>
 
-    "surround the word
-    nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
-    nnoremap <leader>( viw<esc>a)<esc>hbi(<esc>lel
-    vnoremap <leader>" <esc>`>a"<esc>`<i"<esc>
-    vnoremap <leader>( <esc>`>a)<esc>`<i(<esc>
+    "normal mode mappings begin
+        nnoremap <C-b>n  :bnext<CR>
+        nnoremap <C-b>p  :bprev<CR>
+        noremap \ gt
+        noremap <tab> gT
+        nnoremap _ ddkP
+        nnoremap - ddp
+        nnoremap <leader>rc :vsp $MYVIMRC<CR>
+        nnoremap <leader>src :source $MYVIMRC<CR>
+        nnoremap <leader>o o<esc>k
+        noremap H ^
+        noremap L $
+        noremap Y y$
+    "end
 
-    nnoremap H ^
-    nnoremap L $
-    vnoremap H ^
-    vnoremap L $
+    "insert mode mappings
+        inoremap jk <esc>
+        inoremap <C-Z> <ESC>zza
+        inoremap <C-u> <ESC>viwUei
+    "end
 
-    inoremap jk <esc>
-    nnoremap <leader>o o<esc>k
 
-    "operator-pending mappings
-    onoremap in( :<C-u>normal! f(vi(<CR>
-    onoremap il( :<C-u>normal! F)vi(<CR>
-    onoremap in" :<C-u>normal! f"vi"<CR>
-    onoremap il" :<C-u>normal! F"vi"<CR>
+    "surround the word begin
+        nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
+        nnoremap <leader>( viw<esc>a)<esc>hbi(<esc>lel
+        vnoremap <leader>" <esc>`>a"<esc>`<i"<esc>
+        vnoremap <leader>( <esc>`>a)<esc>`<i(<esc>
+    "end
+
+    "operator-pending mappings begin
+        onoremap in( :<C-u>normal! f(vi(<CR>
+        onoremap il( :<C-u>normal! F)vi(<CR>
+        onoremap in" :<C-u>normal! f"vi"<CR>
+        onoremap il" :<C-u>normal! F"vi"<CR>
+    "end
+
+    "search settings begin
+        nnoremap <C-l> :nohlsearch<CR>
+        set incsearch
+    "end
 "end
 
 "smooth scroll begin
@@ -86,10 +103,6 @@
     call pathogen#infect()
 "end
 
-"snipMate bein
-    filetype plugin on
-"end
-"
 "powerline begin
     set nocompatible
     set t_Co=256
@@ -97,7 +110,6 @@
     set guifont=Monaco\ for\ Powerline
     set laststatus=2
 "end
-
 
 "ctrlp begin
     set runtimepath^=~/.vim/bundle/ctrlp.vim
