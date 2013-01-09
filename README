@@ -69,7 +69,7 @@
     "insert mode mappings
         inoremap jk <esc>
         inoremap <C-Z> <ESC>zza
-        inoremap <C-u> <ESC>viwUei
+        inoremap <C-u> <ESC>viwUea
     "end
 
 
