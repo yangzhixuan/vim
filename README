@@ -2,6 +2,7 @@
 "general settings begin
     set number
     set scrolloff=1
+    set incsearch
 
     "enhanced completion in cmd line
     set wildmenu
@@ -43,27 +44,36 @@
     let mapleader = ","
     let localleader = "\\"
 
-    noremap <F5> :make %< <CR>
+    nnoremap <F5> :make %< <CR>
     inoremap <F5> <ESC>:make %< <CR>
+
+    "explanation: I want to use <A-q> as NERDTree, but xfce-terminal modified
+    "the key sequence(learn more in help :map-alt-keys), so use <C-v><A-q> instead.
     noremap q :NERDTreeToggle<CR>
 
     "use <space> to open or close folds
     nnoremap <SPACE> za
 
+    "n/v/o mode mappings begin
+        noremap H ^
+        noremap L $
+        noremap Y y$
+    "end
 
     "normal mode mappings begin
+        nnoremap \ gt
+        nnoremap <tab> gT
         nnoremap <C-b>n  :bnext<CR>
         nnoremap <C-b>p  :bprev<CR>
-        noremap \ gt
-        noremap <tab> gT
+
+        nnoremap <C-a> ggVG
+        nnoremap <C-n> :tabnew<space>
+        nnoremap <C-l> :nohlsearch<CR>
         nnoremap _ ddkP
         nnoremap - ddp
         nnoremap <leader>rc :vsp $MYVIMRC<CR>
         nnoremap <leader>src :source $MYVIMRC<CR>
         nnoremap <leader>o o<esc>k
-        noremap H ^
-        noremap L $
-        noremap Y y$
     "end
 
     "insert mode mappings
@@ -85,11 +95,6 @@
         onoremap il( :<C-u>normal! F)vi(<CR>
         onoremap in" :<C-u>normal! f"vi"<CR>
         onoremap il" :<C-u>normal! F"vi"<CR>
-    "end
-
-    "search settings begin
-        nnoremap <C-l> :nohlsearch<CR>
-        set incsearch
     "end
 "end
 
