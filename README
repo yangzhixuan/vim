@@ -123,8 +123,16 @@
 "ruby begin
     augroup rubyindent
         autocmd!
-        autocmd BufNewFile,BufRead *.rb set softtabstop=2 | set shiftwidth=2  
-        autocmd FileType ruby set softtabstop=2 | set shiftwidth=2  
+        autocmd FileType ruby set softtabstop=2 | set shiftwidth=2
+    augroup END
+"end
+
+"javascript begin
+    augroup jscmd
+        autocmd!
+
+        "yes, I always forget semicons in js
+        autocmd Filetype javascript inoremap <leader>kc <ESC>mqkA;<ESC>`qa
     augroup END
 "end
 
