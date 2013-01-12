@@ -2,4 +2,4 @@
 cp -f ~/.vimrc README
 git add .
 git commit -a
-git push
+git push origin master
