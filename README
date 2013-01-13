@@ -23,6 +23,10 @@
     set hlsearch
     set display+=lastline
 
+    "highlight the 80th char in a line
+    highlight rightMargin term=bold ctermfg=red
+    match rightMargin /\%<81v.\%>80v/
+
     set foldmethod=syntax
     set foldlevelstart=99
     filetype indent plugin on
@@ -44,8 +48,8 @@
     let mapleader = ","
     let localleader = "\\"
 
-    nnoremap <F5> :make %< <CR>
-    inoremap <F5> <ESC>:make %< <CR>
+    nnoremap <F5> :make<CR>
+    inoremap <F5> <ESC>:make<CR>
 
     "explanation: I want to use <A-q> as NERDTree, but xfce-terminal modified
     "the key sequence(learn more in help :map-alt-keys), so use <C-v><A-q> instead.
@@ -74,6 +78,10 @@
         nnoremap <leader>rc :vsp $MYVIMRC<CR>
         nnoremap <leader>src :source $MYVIMRC<CR>
         nnoremap <leader>o o<esc>k
+
+        nnoremap <C-?> ?\v
+        "it's <C-/> actually
+        nnoremap  /\v
     "end
 
     "insert mode mappings
@@ -94,6 +102,12 @@
         onoremap il( :<C-u>normal! F)vi(<CR>
         onoremap in" :<C-u>normal! f"vi"<CR>
         onoremap il" :<C-u>normal! F"vi"<CR>
+    "end
+    
+    "quickfix mappings begin
+        nnoremap <leader>n :cnext<CR>
+        nnoremap <leader>p :cprev<CR>
+        nnoremap <leader>w :cwin<CR>
     "end
 "end
 
@@ -129,7 +143,6 @@
 "javascript begin
     augroup jscmd
         autocmd!
-
         "yes, I always forget semicons in js
         autocmd Filetype javascript inoremap <leader>kc <ESC>mqkA;<ESC>`qa
     augroup END
@@ -141,13 +154,13 @@
     function! Fcitx2en()
        let g:prev_status = system("fcitx-remote") 
        if g:prev_status != 1
-          let l:a = system("fcitx-remote -c")
+          call system("fcitx-remote -c")
        endif
     endfunction
 
     function! Fcitx2zh()
        if g:prev_status == 2
-          let l:a = system("fcitx-remote -o")
+          call system("fcitx-remote -o")
        endif
     endfunction
 
@@ -162,6 +175,21 @@
     augroup html_aucmd
         autocmd!
         autocmd FileType html nnoremap <leader>p :!firefox % <CR><CR>
+    augroup END
+"end
+
+"c++/c autocmds begin
+"since I write single file programs most of the time, it's more convenient to
+"use g++/gcc directly as the makeprg
+    function! SetMakeprg(compiler)
+        let l:option = printf('setlocal makeprg=%s\ %s\ -o\ %s', a:compiler, @%, fnamemodify(@%, ':t:r'))
+        execute l:option
+    endfunction
+
+    augroup c_aucmd
+        autocmd!
+        autocmd FileType c call SetMakeprg("gcc")
+        autocmd FileType cpp call SetMakeprg("g++")
     augroup END
 "end
 
