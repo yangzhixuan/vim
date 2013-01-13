@@ -3,6 +3,7 @@
     set number
     set scrolloff=1
     set incsearch
+    set hlsearch
 
     "enhanced completion in cmd line
     set wildmenu
@@ -10,17 +11,16 @@
     set shiftwidth=4
     set tabstop=4
     set expandtab
+    set smarttab
 
     set autoread
     set autoindent
+    set autowrite
     syntax on
 
     set mouse=a
-    set whichwrap=h,l,[,]
 
-    "colorscheme torte
     set cursorline
-    set hlsearch
     set display+=lastline
 
     "highlight the 80th char in a line
@@ -31,7 +31,7 @@
     set foldlevelstart=99
     filetype indent plugin on
 
-    "speed up external commands
+    "speed up external commands by skipping the .zshrc
     set shell=/bin/zsh\ -f
 "end
 
@@ -51,8 +51,8 @@
     nnoremap <F5> :make<CR>
     inoremap <F5> <ESC>:make<CR>
 
-    "explanation: I want to use <A-q> as NERDTree, but xfce-terminal modified
-    "the key sequence(learn more in help :map-alt-keys), so use <C-v><A-q> instead.
+    "Explanation: I want to use <A-q> as NERDTree, but my xfce-terminal modified
+    "the key sequence(learn more in help :map-alt-keys), so I have to use <C-v><A-q>.
     noremap q :NERDTreeToggle<CR>
 
     "use <space> to open or close folds
@@ -98,12 +98,15 @@
     "end
 
     "operator-pending mappings begin
+        "these motions are very similar to the defaul i( or i" motions, but they
+        "allow you to select the block when the cousor is outside the block.
+        "So, they are called i(nner) n(ext)/l(ast) (/"
         onoremap in( :<C-u>normal! f(vi(<CR>
         onoremap il( :<C-u>normal! F)vi(<CR>
         onoremap in" :<C-u>normal! f"vi"<CR>
         onoremap il" :<C-u>normal! F"vi"<CR>
     "end
-    
+
     "quickfix mappings begin
         nnoremap <leader>n :cnext<CR>
         nnoremap <leader>p :cprev<CR>
@@ -179,8 +182,8 @@
 "end
 
 "c++/c autocmds begin
-"since I write single file programs most of the time, it's more convenient to
-"use g++/gcc directly as the makeprg
+    "Since I write single file programs most of the time, it's more convenient to
+    "use g++/gcc directly as the makeprg
     function! SetMakeprg(compiler)
         let l:option = printf('setlocal makeprg=%s\ %s\ -o\ %s', a:compiler, @%, fnamemodify(@%, ':t:r'))
         execute l:option
