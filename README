@@ -68,6 +68,7 @@
         nnoremap <tab> gT
         nnoremap <C-b>n  :bnext<CR>
         nnoremap <C-b>p  :bprev<CR>
+        nnoremap <leader>q :q<CR>
 
         nnoremap <C-a> ggVG
         nnoremap <C-n> :tabnew<SPACE>
