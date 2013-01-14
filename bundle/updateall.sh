@@ -22,6 +22,7 @@ do
             tput sgr0
             git pull
         fi
+        rm -f 0
         cd ..
     fi
 done
