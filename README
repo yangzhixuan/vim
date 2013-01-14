@@ -49,7 +49,6 @@
     let localleader = "\\"
 
     nnoremap <F5> :make<CR>
-    inoremap <F5> <ESC>:make<CR>
 
     "Explanation: I want to use <A-q> as NERDTree, but my xfce-terminal modified
     "the key sequence(learn more in help :map-alt-keys), so I have to use <C-v><A-q>.
@@ -71,17 +70,22 @@
         nnoremap <C-b>p  :bprev<CR>
 
         nnoremap <C-a> ggVG
-        nnoremap <C-n> :tabnew<space>
+        nnoremap <C-n> :tabnew<SPACE>
         nnoremap <C-l> :nohlsearch<CR>
+        nnoremap <C-h> :help<SPACE>
         nnoremap _ ddkP
         nnoremap - ddp
         nnoremap <leader>rc :vsp $MYVIMRC<CR>
         nnoremap <leader>src :source $MYVIMRC<CR>
-        nnoremap <leader>o o<esc>k
+        nnoremap <leader>o o<ESC>k
 
         nnoremap <C-?> ?\v
         "it's <C-/> actually
         nnoremap  /\v
+
+        "gj and gk work better when a long line is wrapped
+        nnoremap j gj
+        nnoremap k gk
     "end
 
     "insert mode mappings
@@ -110,7 +114,8 @@
     "quickfix mappings begin
         nnoremap <leader>n :cnext<CR>
         nnoremap <leader>p :cprev<CR>
-        nnoremap <leader>w :cwin<CR>
+        nnoremap <leader>co :cwin<CR>
+        nnoremap <leader>cc :cclose<CR>
     "end
 "end
 

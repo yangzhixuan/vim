@@ -1,11 +1,3 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =9
-let g:netrw_dirhist_1='/home/jason/.pulse'
-let g:netrw_dirhist_2='/home/jason/.emacs.d'
-let g:netrw_dirhist_3='/home/jason'
-let g:netrw_dirhist_4='/srv/http/tcpdf/config'
-let g:netrw_dirhist_5='/home/jason/web/sample'
-let g:netrw_dirhist_6='/home/jason/web/sample/app'
-let g:netrw_dirhist_7='/etc/fonts'
-let g:netrw_dirhist_8='/home/jason/.vim'
-let g:netrw_dirhist_9='/home/jason/Codes/parsers/tpdsl-code/IR/Vec'
+let g:netrw_dirhist_cnt =1
+let g:netrw_dirhist_1='/home/jason/.vim'
