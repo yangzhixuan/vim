@@ -35,6 +35,7 @@ function s:makeDefaultBehavior()
         \   'html'   : [],
         \   'xhtml'  : [],
         \   'css'    : [],
+        \   'javascript' : [],
         \ }
   "---------------------------------------------------------------------------
   if !empty(g:acp_behaviorUserDefinedFunction) &&
@@ -78,6 +79,12 @@ function s:makeDefaultBehavior()
   call add(behavs.ruby, {
         \   'command' : "\<C-x>\<C-o>",
         \   'meets'   : 'acp#meetsForRubyOmni',
+        \   'repeat'  : 0,
+        \ })
+  "---------------------------------------------------------------------------
+  call add(behavs.javascript, {
+        \   'command' : "\<C-x>\<C-o>",
+        \   'meets'   : "acp#meetsForRubyOmni",
         \   'repeat'  : 0,
         \ })
   "---------------------------------------------------------------------------
