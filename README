@@ -153,7 +153,7 @@
     augroup jscmd
         autocmd!
         "yes, I always forget semicons in js
-        autocmd Filetype javascript inoremap <leader>kc <ESC>mqkA;<ESC>`qa
+        autocmd Filetype javascript,html inoremap <leader>kc <ESC>kA;<CR>
     augroup END
 "end
 
@@ -205,4 +205,15 @@
 "show space as dot
     set listchars=tab:▸\ ,trail:·
     set list
+"end
+
+"fold column toggle key begin
+    function! FoldColumnToggle()
+        if &foldcolumn
+            setlocal foldcolumn=0
+        else
+            setlocal foldcolumn=1
+        endif
+    endfunction
+    nnoremap <leader>f :call FoldColumnToggle()<CR>
 "end
