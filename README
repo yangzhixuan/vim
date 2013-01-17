@@ -1,5 +1,5 @@
-" vim: foldmethod=indent
-"general settings begin
+" vim: foldmethod=marker
+"general settings {{{
     set number
     set scrolloff=1
     set incsearch
@@ -33,18 +33,18 @@
 
     "speed up external commands by skipping the .zshrc
     set shell=/bin/zsh\ -f
-"end
+"}}}
 
-"dictionary completion <C-X><C-K> begin
+"dictionary completion <C-X><C-K> {{{
     set dictionary+=/usr/share/dict/cracklib-small
     set isk+=-
-"end
+"}}}
 
-"forget-those begin
+"forget-those {{{
     inoremap <ESC> <NOP>
-"end
+"}}}
 
-"shortcuts begin
+"shortcuts {{{
     let mapleader = ","
     let localleader = "\\"
 
@@ -57,13 +57,13 @@
     "use <space> to open or close folds
     nnoremap <SPACE> za
 
-    "n/v/o mode mappings begin
+    "n/v/o mode mappings {{{
         noremap H ^
         noremap L $
         noremap Y y$
-    "end
+    "}}}
 
-    "normal mode mappings begin
+    "normal mode mappings {{{
         nnoremap \ gt
         nnoremap <tab> gT
         nnoremap <C-b>n  :bnext<CR>
@@ -87,22 +87,22 @@
         "gj and gk work better when a long line is wrapped
         nnoremap j gj
         nnoremap k gk
-    "end
+    "}}}
 
-    "insert mode mappings
+    "insert mode mappings {{{
         inoremap jk <esc>
         inoremap <C-Z> <ESC>zza
         inoremap <C-u> <ESC>viwUea
-    "end
+    "}}}
 
-    "surround the word begin
+    "surround the word {{{
         nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
         nnoremap <leader>( viw<esc>a)<esc>hbi(<esc>lel
         vnoremap <leader>" <esc>`>a"<esc>`<i"<esc>
         vnoremap <leader>( <esc>`>a)<esc>`<i(<esc>
-    "end
+    "}}}
 
-    "operator-pending mappings begin
+    "operator-pending mappings {{{
         "these motions are very similar to the defaul i( or i" motions, but they
         "allow you to select the block when the cousor is outside the block.
         "So, they are called i(nner) n(ext)/l(ast) (/"
@@ -110,61 +110,61 @@
         onoremap il( :<C-u>normal! F)vi(<CR>
         onoremap in" :<C-u>normal! f"vi"<CR>
         onoremap il" :<C-u>normal! F"vi"<CR>
-    "end
+    "}}}
 
-    "quickfix mappings begin
+    "quickfix mappings {{{
         nnoremap <leader>n :cnext<CR>
         nnoremap <leader>p :cprev<CR>
         nnoremap <leader>co :cwin<CR>
         nnoremap <leader>cc :cclose<CR>
-    "end
-"end
+    "}}}
+"}}}
 
-"smooth scroll begin
+"smooth scroll {{{
     nnoremap <C-U> <C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y>
     nnoremap <C-D> <C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E>
-"end
+"}}}
 
-"pathogen begin
+"pathogen {{{
     runtime bundle/vim-pathogen/autoload/pathogen.vim
     call pathogen#infect()
-"end
+"}}}
 
-"powerline begin
+"powerline {{{
     set nocompatible
     set t_Co=256
     let g:Powerline_symbols = 'fancy'
     set guifont=Monaco\ for\ Powerline
     set laststatus=2
-"end
+"}}}
 
-"ctrlp begin
+"ctrlp {{{
     set runtimepath^=~/.vim/bundle/ctrlp.vim
-"end
+"}}}
 
-"ruby begin
+"ruby {{{
     augroup rubyindent
         autocmd!
         autocmd FileType ruby set softtabstop=2 | set shiftwidth=2
     augroup END
-"end
+"}}}
 
-"javascript begin
+"javascript {{{
     augroup jscmd
         autocmd!
         "yes, I always forget semicons in js
         autocmd Filetype javascript,html inoremap <leader>kc <ESC>kA;<CR>
     augroup END
-"end
+"}}}
 
 
-"fcitx begin"
+"fcitx {{{
     let g:prev_status = 0
     function! Fcitx2en()
        let g:prev_status = system("fcitx-remote") 
        if g:prev_status != 1
           call system("fcitx-remote -c")
-       endif
+      endif
     endfunction
 
     function! Fcitx2zh()
@@ -178,16 +178,16 @@
         autocmd InsertLeave * call Fcitx2en()
         autocmd InsertEnter * call Fcitx2zh()
     augroup END
-"end
+"}}}
 
-"html_preview begin
+"html_preview {{{
     augroup html_aucmd
         autocmd!
         autocmd FileType html nnoremap <leader>p :!firefox % <CR><CR>
     augroup END
-"end
+"}}}
 
-"c++/c autocmds begin
+"c++/c autocmds {{{
     "Since I write single file programs most of the time, it's more convenient to
     "use g++/gcc directly as the makeprg
     function! SetMakeprg(compiler)
@@ -200,14 +200,14 @@
         autocmd FileType c call SetMakeprg("gcc")
         autocmd FileType cpp call SetMakeprg("g++")
     augroup END
-"end
+"}}}
 
-"show space as dot
+"show space as dot {{{
     set listchars=tab:▸\ ,trail:·
     set list
-"end
+"}}}
 
-"fold column toggle key begin
+"fold column toggle key {{{
     function! FoldColumnToggle()
         if &foldcolumn
             setlocal foldcolumn=0
@@ -216,5 +216,5 @@
         endif
     endfunction
     nnoremap <leader>f :call FoldColumnToggle()<CR>
-"end
+"}}}
 
