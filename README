@@ -37,7 +37,7 @@
 
 "dictionary completion <C-X><C-K> {{{
     set dictionary+=/usr/share/dict/cracklib-small
-    set isk+=-
+    set iskeyword+=-
 "}}}
 
 "forget-those {{{
@@ -218,3 +218,9 @@
     nnoremap <leader>f :call FoldColumnToggle()<CR>
 "}}}
 
+"autocmds for scratch files{{{
+    augroup scratch
+        autocmd! 
+        autocmd QuitPre * if @% == "" | setlocal nomodified | endif
+    augroup END
+"}}}
