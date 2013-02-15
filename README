@@ -14,7 +14,7 @@
     set smarttab
 
     set autoread
-    set autoindent
+    set smartindent
     set autowrite
     syntax on
 
@@ -43,16 +43,20 @@
 "forget-those {{{
     inoremap <ESC> <NOP>
 "}}}
-
+"
 "shortcuts {{{
     let mapleader = ","
     let localleader = "\\"
 
     nnoremap <F5> :make<CR>
 
-    "Explanation: I want to use <A-q> as NERDTree, but my xfce-terminal modified
-    "the key sequence(learn more in help :map-alt-keys), so I have to use <C-v><A-q>.
-    noremap q :NERDTreeToggle<CR>
+    if has("gui_running") "{{{
+        noremap <A-q> :NERDTreeToggle<CR>
+    else
+        "Explanation: I want to use <A-q> as NERDTree, but my xfce-terminal modified
+        "the key sequence(learn more in help :map-alt-keys), so I have to use <C-v><A-q>.
+        noremap q :NERDTreeToggle<CR>
+    endif "}}}
 
     "use <space> to open or close folds
     nnoremap <SPACE> za
@@ -70,7 +74,7 @@
         nnoremap <C-b>p  :bprev<CR>
         nnoremap <leader>q :q<CR>
 
-        nnoremap <C-a> ggVG
+        nnoremap <C-a> ggVG"+y
         nnoremap <C-n> :tabnew<SPACE>
         nnoremap <C-l> :nohlsearch<CR>
         nnoremap <C-h> :help<SPACE>
@@ -79,6 +83,7 @@
         nnoremap <leader>rc :vsp $MYVIMRC<CR>
         nnoremap <leader>src :source $MYVIMRC<CR>
         nnoremap <leader>o o<ESC>k
+        nnoremap <leader><space> a<space><ESC>
 
         nnoremap <C-?> ?\v
         "it's <C-/> actually
@@ -92,7 +97,10 @@
     "insert mode mappings {{{
         inoremap jk <esc>
         inoremap <C-Z> <ESC>zza
-        inoremap <C-u> <ESC>viwUea
+        inoremap <C-u> <ESC>mzgUiw`za
+
+        "make <C-c> trigger LeaveInsert autocmd event
+        inoremap <C-c> <ESC>
     "}}}
 
     "surround the word {{{
@@ -161,16 +169,16 @@
 "fcitx {{{
     let g:prev_status = 0
     function! Fcitx2en()
-       let g:prev_status = system("fcitx-remote") 
-       if g:prev_status != 1
-          call system("fcitx-remote -c")
-      endif
+        let g:prev_status = system("fcitx-remote")
+        if g:prev_status == 2
+           call system("fcitx-remote -c")
+        endif
     endfunction
 
     function! Fcitx2zh()
-       if g:prev_status == 2
-          call system("fcitx-remote -o")
-       endif
+        if g:prev_status == 2
+            call system("fcitx-remote -o")
+        endif
     endfunction
 
     augroup fcitx_aucmd
@@ -183,7 +191,7 @@
 "html_preview {{{
     augroup html_aucmd
         autocmd!
-        autocmd FileType html nnoremap <leader>p :!firefox % <CR><CR>
+        autocmd FileType html nnoremap <leader>fp :!firefox % <CR><CR>
     augroup END
 "}}}
 
@@ -191,7 +199,7 @@
     "Since I write single file programs most of the time, it's more convenient to
     "use g++/gcc directly as the makeprg
     function! SetMakeprg(compiler)
-        let l:option = printf('setlocal makeprg=%s\ %s\ -o\ %s', a:compiler, @%, fnamemodify(@%, ':t:r'))
+        let l:option = printf('setlocal makeprg=%s\ -lmicrohttpd\ %s\ -o\ %s', a:compiler, @%, fnamemodify(@%, ':t:r'))
         execute l:option
     endfunction
 
