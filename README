@@ -98,7 +98,7 @@
         inoremap jk <esc>
         inoremap <C-Z> <ESC>zza
         inoremap <C-u> <ESC>mzgUiw`za
-
+        inoremap <C-i> <ESC>mzb~`za
         "make <C-c> trigger LeaveInsert autocmd event
         inoremap <C-c> <ESC>
     "}}}
