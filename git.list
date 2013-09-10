@@ -1,0 +1,17 @@
+git submodule add https://github.com/kien/ctrlp.vim.git ctrlp.vim
+git submodule add https://github.com/vim-scripts/DrawIt.git DrawIt
+git submodule add https://github.com/tmhedberg/indent-motion.git indent-motion
+git submodule add https://github.com/scrooloose/nerdtree.git nerdtree
+git submodule add https://github.com/vim-scripts/taglist.vim.git taglist.vim
+git submodule add https://github.com/miripiruni/vim-better-css-indent.git vim-better-css-indent
+git submodule add https://github.com/altercation/vim-colors-solarized.git vim-colors-solarized
+git submodule add https://github.com/tpope/vim-fugitive.git vim-fugitive
+git submodule add https://github.com/bouzuya/vim-ibus.git vim-ibus
+git submodule add https://github.com/tsaleh/vim-matchit.git vim-matchit
+git submodule add https://github.com/tpope/vim-pathogen.git vim-pathogen
+git submodule add https://github.com/yangzhixuan/vim-potion.git vim-potion
+git submodule add https://github.com/Lokaltog/vim-powerline.git vim-powerline
+git submodule add https://github.com/tpope/vim-rails.git vim-rails
+git submodule add https://github.com/tpope/vim-surround.git vim-surround
+git submodule add https://github.com/tpope/vim-vividchalk.git vim-vividchalk
+git submodule add https://github.com/mattn/zencoding-vim.git zencoding-vim

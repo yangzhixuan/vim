@@ -11,7 +11,7 @@ do
             cd ..
             continue
         fi
-
+        echo $i
         tput setaf 2
         echo $i checking...
         tput sgr0
