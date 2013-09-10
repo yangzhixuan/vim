@@ -32,7 +32,7 @@
     filetype indent plugin on
 
     "speed up external commands by skipping the .zshrc
-    set shell=/bin/zsh\ -f
+    set shell=/bin/bash\ -f
 "}}}
 
 "dictionary completion <C-X><C-K> {{{
@@ -85,9 +85,9 @@
         nnoremap <leader>o o<ESC>k
         nnoremap <leader><space> a<space><ESC>
 
-        nnoremap <C-?> ?\v
+        "nnoremap <C-?> ?\v
         "it's <C-/> actually
-        nnoremap  /\v
+        "nnoremap  /\v
 
         "gj and gk work better when a long line is wrapped
         nnoremap j gj
@@ -125,6 +125,10 @@
         nnoremap <leader>p :cprev<CR>
         nnoremap <leader>co :cwin<CR>
         nnoremap <leader>cc :cclose<CR>
+    "}}}
+
+    "taglist mappings {{{
+        nnoremap <leader>tl :Tlist<CR>
     "}}}
 "}}}
 
@@ -188,6 +192,28 @@
     augroup END
 "}}}
 
+"ibus {{{
+    let g:ibus_prev_status = 0
+    function! Ibus2en()
+        let g:ibus_prev_status = ibus#is_enabled()
+        if g:ibus_prev_status == 1
+            call ibus#disable()
+        endif
+    endfunction
+
+    function! Ibus2zh()
+        if g:ibus_prev_status == 1
+            call ibus#enable()
+        endif
+    endfunction
+
+    augroup ibus_aucmd
+        autocmd!
+        autocmd InsertLeave * call Ibus2en()
+        autocmd InsertEnter * call Ibus2zh()
+    augroup END
+"}}}
+
 "html_preview {{{
     augroup html_aucmd
         autocmd!
@@ -199,7 +225,7 @@
     "Since I write single file programs most of the time, it's more convenient to
     "use g++/gcc directly as the makeprg
     function! SetMakeprg(compiler)
-        let l:option = printf('setlocal makeprg=%s\ -lmicrohttpd\ %s\ -o\ %s', a:compiler, @%, fnamemodify(@%, ':t:r'))
+        let l:option = printf('setlocal makeprg=%s\ %s\ -o\ %s\ -lm\ ', a:compiler, @%, fnamemodify(@%, ':t:r'))
         execute l:option
     endfunction
 
@@ -231,4 +257,8 @@
         autocmd! 
         autocmd QuitPre * if @% == "" | setlocal nomodified | endif
     augroup END
+"}}}
+
+"taglist plugin{{{
+    let Tlist_Exit_OnlyWindow=1
 "}}}
