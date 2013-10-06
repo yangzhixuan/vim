@@ -46,6 +46,3 @@
 [submodule "bundle/vim-vividchalk"]
 	path = bundle/vim-vividchalk
 	url = https://github.com/tpope/vim-vividchalk.git
-[submodule "bundle/zencoding-vim"]
-	path = bundle/zencoding-vim
-	url = https://github.com/mattn/zencoding-vim.git
