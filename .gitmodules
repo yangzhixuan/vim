@@ -49,3 +49,12 @@
 [submodule "bundle/emmet-vim"]
 	path = bundle/emmet-vim
 	url = https://github.com/mattn/emmet-vim.git
+[submodule "bundle/vim-easytags"]
+	path = bundle/vim-easytags
+	url = https://github.com/xolox/vim-easytags.git
+[submodule "bundle/vim-misc"]
+	path = bundle/vim-misc
+	url = https://github.com/xolox/vim-misc.git
+[submodule "bundle/vim-pandoc"]
+	path = bundle/vim-pandoc
+	url = https://github.com/vim-pandoc/vim-pandoc.git
