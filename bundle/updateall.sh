@@ -4,7 +4,7 @@ do
     if [ -d $i ]
     then
         cd $i
-        if [ ! -d '.git' ]; then
+        if [ ! -e '.git' ]; then
             tput setaf 7
             echo $i omitted
             tput sgr0 

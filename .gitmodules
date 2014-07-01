@@ -58,3 +58,33 @@
 [submodule "bundle/vim-pandoc"]
 	path = bundle/vim-pandoc
 	url = https://github.com/vim-pandoc/vim-pandoc.git
+[submodule "bundle/slimv.git"]
+	path = bundle/slimv.git
+	url = https://github.com/kovisoft/slimv.git
+[submodule "bundle/fencview.vim"]
+	path = bundle/fencview.vim
+	url = https://github.com/vim-scripts/FencView.vim.git
+[submodule "bundle/writebackup"]
+	path = bundle/writebackup
+	url = https://github.com/vim-scripts/writebackup.git
+[submodule "bundle/ingo-library"]
+	path = bundle/ingo-library
+	url = https://github.com/vim-scripts/ingo-library.git
+[submodule "bundle/haskell-indent"]
+	path = bundle/haskell-indent
+	url = https://github.com/kana/vim-filetype-haskell.git
+[submodule "bundle/haskellmode-vim"]
+	path = bundle/haskellmode-vim
+	url = https://github.com/lukerandall/haskellmode-vim.git
+[submodule "bundle/julia-vim"]
+	path = bundle/julia-vim
+	url = https://github.com/JuliaLang/julia-vim.git
+[submodule "bundle/vim-syntastic"]
+	path = bundle/vim-syntastic
+	url = https://github.com/scrooloose/syntastic.git
+[submodule "bundle/ghcmod-vim"]
+	path = bundle/ghcmod-vim
+	url = https://github.com/eagletmt/ghcmod-vim.git
+[submodule "bundle/vimproc"]
+	path = bundle/vimproc
+	url = https://github.com/Shougo/vimproc.vim.git
