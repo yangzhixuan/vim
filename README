@@ -1,5 +1,4 @@
-" vim: foldmethod=marker
-"general settings {{{
+" vm: foldmethod=marker "general settings {{{
     set number
     set scrolloff=1
     set incsearch
@@ -21,18 +20,28 @@
     set mouse=a
 
     set cursorline
+    set cursorcolumn
     set display+=lastline
 
     "highlight the 80th char in a line
-    highlight rightMargin term=bold ctermfg=red
+    highlight rightMargin cterm=bold ctermfg=red
     match rightMargin /\%<81v.\%>80v/
+
+    "Completion popup menu color
+    highlight Pmenu ctermbg=brown
+    highlight PmenuSel ctermbg=blue
 
     set foldmethod=syntax
     set foldlevelstart=99
     filetype indent plugin on
 
-    "speed up external commands by skipping the .zshrc
+    "speed up external commands by skipping the shell rc
     set shell=/bin/bash\ -f
+
+    "fileencodings for recognition, fileencoding for writting
+    set fileencodings-=latin1
+    set fileencodings+=gb18030
+    set fileencodings+=latin1
 "}}}
 
 "dictionary completion <C-X><C-K> {{{
@@ -41,14 +50,16 @@
 "}}}
 
 "forget-those {{{
-    inoremap <ESC> <NOP>
+  "  inoremap <ESC> <NOP>
 "}}}
 "
 "shortcuts {{{
     let mapleader = ","
-    let localleader = "\\"
+    let maplocalleader = ",\\"
 
     nnoremap <F5> :make<CR>
+
+    nnoremap <leader>t "=strftime("%c")<CR>P
 
     if has("gui_running") "{{{
         noremap <A-q> :NERDTreeToggle<CR>
@@ -68,6 +79,9 @@
     "}}}
 
     "normal mode mappings {{{
+        nnoremap <leader>] :tn<CR>
+        nnoremap <leader>[ :tN<CR>
+        nnoremap g] :tjump<CR>
         nnoremap \ gt
         nnoremap <tab> gT
         nnoremap <C-b>n  :bnext<CR>
@@ -98,9 +112,10 @@
         inoremap jk <esc>
         inoremap <C-Z> <ESC>zza
         inoremap <C-u> <ESC>mzgUiw`za
-        inoremap <C-i> <ESC>mzb~`za
+        inoremap <C-j> <ESC>mzb~`za
         "make <C-c> trigger LeaveInsert autocmd event
         inoremap <C-c> <ESC>
+        inoremap <C-t> \(\)<ESC>hi
     "}}}
 
     "surround the word {{{
@@ -142,12 +157,12 @@
     call pathogen#infect()
 "}}}
 
-"powerline {{{
+"airline {{{
     set nocompatible
     set t_Co=256
-    let g:Powerline_symbols = 'fancy'
-    set guifont=Monaco\ for\ Powerline
     set laststatus=2
+    let g:airline_powerline_fonts = 1
+    let g:airline_theme = "murmur"
 "}}}
 
 "ctrlp {{{
@@ -193,31 +208,31 @@
 "}}}
 
 "ibus {{{
-    let g:ibus_prev_status = 0
-    function! Ibus2en()
-        let g:ibus_prev_status = ibus#is_enabled()
-        if g:ibus_prev_status == 1
-            call ibus#disable()
-        endif
-    endfunction
-
-    function! Ibus2zh()
-        if g:ibus_prev_status == 1
-            call ibus#enable()
-        endif
-    endfunction
-
-    augroup ibus_aucmd
-        autocmd!
-        autocmd InsertLeave * call Ibus2en()
-        autocmd InsertEnter * call Ibus2zh()
-    augroup END
+"    let g:ibus_prev_status = 0
+"    function! Ibus2en()
+"        let g:ibus_prev_status = ibus#is_enabled()
+"        if g:ibus_prev_status == 1
+"            call ibus#disable()
+"        endif
+"    endfunction
+"
+"    function! Ibus2zh()
+"        if g:ibus_prev_status == 1
+"            call ibus#enable()
+"        endif
+"    endfunction
+"
+"    augroup ibus_aucmd
+"        autocmd!
+"        autocmd InsertLeave * call Ibus2en()
+"        autocmd InsertEnter * call Ibus2zh()
+"    augroup END
 "}}}
 
 "html_preview {{{
     augroup html_aucmd
         autocmd!
-        autocmd FileType html nnoremap <leader>fp :!firefox % <CR><CR>
+        autocmd FileType html nnoremap <leader>fp :!google-chrome % <CR><CR>
     augroup END
 "}}}
 
@@ -225,15 +240,32 @@
     "Since I write single file programs most of the time, it's more convenient to
     "use g++/gcc directly as the makeprg
     function! SetMakeprg(compiler)
-        let l:option = printf('setlocal makeprg=%s\ %s\ -o\ %s\ -lm\ ', a:compiler, @%, fnamemodify(@%, ':t:r'))
+        let l:option = printf('setlocal makeprg=%s\ %s\ -o\ %s\ -lm\ -O2\ ', a:compiler, @%, fnamemodify(@%, ':t:r'))
         execute l:option
     endfunction
 
     augroup c_aucmd
         autocmd!
-        autocmd FileType c call SetMakeprg("gcc")
-        autocmd FileType cpp call SetMakeprg("g++")
+        autocmd FileType c call SetMakeprg("clang")
+        autocmd FileType cpp call SetMakeprg('clang++\ -Wno-unused-result')
     augroup END
+"}}}
+
+
+"lisp settings {{{
+    function! SetDictionary()
+        let l:option = printf("set dictionary=%s,%s", '$HOME/.vim/scheme-word-list', &dictionary)
+        execute l:option
+        "let g:is_chicken=1
+    endfunction
+
+    augroup lisp_aucmd
+        autocmd!
+        autocmd FileType scheme call SetDictionary()
+    augroup END
+
+    let g:check_balanced = 0
+    let g:paredit_shortmaps = 1
 "}}}
 
 "show space as dot {{{
@@ -254,11 +286,74 @@
 
 "autocmds for scratch files{{{
     augroup scratch
-        autocmd! 
+        autocmd!
         autocmd QuitPre * if @% == "" | setlocal nomodified | endif
     augroup END
 "}}}
 
 "taglist plugin{{{
     let Tlist_Exit_OnlyWindow=1
+"}}}
+
+"slimv{{{
+    let g:lisp_rainbow=1
+    "let g:slimv_swank_cmd='! xterm -e scheme --load /home/yangzx/.vim/bundle/slimv.git/slime/contrib/swank-mit-scheme.scm &'
+
+    let g:slimv_leader=",,"
+"}}}
+
+"colorscheme {{{
+    set background=dark
+    colorscheme vividchalk
+
+    if has("gui_running")
+        set background=light
+        colorscheme solarized
+
+    endif
+"}}}
+
+"writebackup{{{
+    let g:WriteBackup_BackupDir='~/.vimbackup'
+    autocmd BufReadPre,FileReadPre ?* WriteBackup
+"}}}
+
+
+" fenview{{{
+"    let g:fencview_autodetect = 1
+"    let g:fencview_auto_patterns = '*'
+"}}}
+"
+
+"haskell{{{
+    let g:haddock_browser = "google-chrome"
+"}}}
+"
+
+"easytag{{{
+    let g:easytags_auto_highlight = 0
+    "let g:easytags_updatetime_min = 10000
+"}}}
+
+"for TOOL{{{
+    set lispwords+=define-method
+"}}}
+
+"haskell{{{
+    let g:syntastic_haskell_checkers = ['hlint']
+
+
+    highlight ghcmodType ctermbg=blue
+    let g:ghcmod_type_highlight = 'ghcmodType'
+    nnoremap <leader>tt :GhcModType<CR>
+    nnoremap <leader>tc :GhcModTypeClear<CR>
+"}}}
+
+
+"promptline{{{
+    let g:promptline_preset = {
+            \'b' : [ promptline#slices#user() ],
+            \'c' : [ promptline#slices#cwd() ],
+            \'y' : [ promptline#slices#vcs_branch() ],
+            \'warn' : [ promptline#slices#last_exit_code() ]}
 "}}}
