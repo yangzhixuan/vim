@@ -16,7 +16,8 @@ do
         echo $i checking...
         tput sgr0
         let updated=`git remote show origin | grep -c "out of date"`
-        if [ $updated -gt 0 ]; then
+        let updated_chinese=`git remote show origin | grep -c "本地已过时"`
+        if [ $updated -gt 0 ] || [ $updated_chinese -gt 0 ]; then
             tput setaf 1
             echo $i has updated
             tput sgr0

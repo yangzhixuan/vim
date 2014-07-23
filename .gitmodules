@@ -88,3 +88,15 @@
 [submodule "bundle/vimproc"]
 	path = bundle/vimproc
 	url = https://github.com/Shougo/vimproc.vim.git
+[submodule "bundle/undotree"]
+	path = bundle/undotree
+	url = https://github.com/mbbill/undotree.git
+[submodule "bundle/vim-airline"]
+	path = bundle/vim-airline
+	url = https://github.com/bling/vim-airline.git
+[submodule "bundle/promptline.vim"]
+	path = bundle/promptline.vim
+	url = https://github.com/edkolev/promptline.vim.git
+[submodule "bundle/fencview"]
+	path = bundle/fencview
+	url = https://github.com/mbbill/fencview.git
